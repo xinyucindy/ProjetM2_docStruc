@@ -1,0 +1,9 @@
+YU Xin
+  id-github : xinyucindy
+  parcours : Ingénierie Multilingue, Inalco
+  email : silviayuxin16@gmail.com
+
+XIA Emilie
+  id-github : XiaEmilie
+  parcours : Ingénierie Multilingue, Inalco
+  email : emiliexia093@gmail.com
