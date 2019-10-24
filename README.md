@@ -9,6 +9,6 @@ Les Pokémons
 - Répartition des pokémons sur une carte. (?)
 
 ## Données
-Un fichier contenant des données de 721 Pokemans.
+Un fichier csv contenant des données de 721 Pokemans.
 ### Lien de la source
-[Pokemon With Stats](https://data.world/data-society/pokemon-with-stats)
+[Pokemon With Stats | data.world](https://data.world/data-society/pokemon-with-stats)
