@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../transformation/resultats.xsl"?>
+<page>
+    <t>Résultat : Répartition en graphique</t>
+    <titre>Répartition en graphique</titre>
+    <contenu>
+        <partie>
+            <pp>
+                Ici vous retrouverez les graphiques que l'on a produit à partir du script python en bas de page.
+            </pp>
+        </partie>
+        <partie>
+            <presentation>
+                Graphique : Répartition des types de pokémons différents sur tous les pokémons.
+            </presentation>
+        </partie>
+        <image>../web/img/types.png</image>
+        <partie>
+            <presentation>
+                Graphique : Répartition des pokémons par génération.
+            </presentation>
+        </partie>
+        <image>../web/img/generations.png</image>
+        <partie>
+            <presentation>
+                Graphique : Répartition du nombre de pokémons légendaire sur tous les pokémons.
+            </presentation>
+        </partie>
+        <image>../web/img/legends.png</image>
+        <telechargement>
+            <fichier>
+                <texte>Script Graphique</texte>
+                <lien>../script/script.py</lien>
+            </fichier>
+        </telechargement>
+    </contenu>
+</page>

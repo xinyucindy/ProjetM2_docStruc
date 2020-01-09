@@ -1,0 +1,74 @@
+<html lang="fr">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Présentation du projet</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="../css/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+<link rel="stylesheet" href="../css/font-awesome.min.css">
+<link rel="stylesheet" href="../css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/magnific-popup.css">
+<link rel="stylesheet" href="../css/templatemo-style.css">
+<link rel="icon" href="../img/icone.png" type="image/x-icon">
+</head>
+<body>
+<div class="container-fluid"><section id="welcome" class="tm-content-box tm-banner margin-b-10"><div class="tm-banner-inner">
+<h1 class="tm-banner-title">Document Structuré</h1>
+<p>Xin YU | Emilie XIA</p>
+</div></section></div>
+<div class="container-fluid">
+<div class="wrapper row4"><nav id="mainav" class="hoc clear"><ul class="clear">
+<li><a href="../../xml/accueil.xml">Accueil</a></li>
+<li><a href="resultat.html">Présentation</a></li>
+<li><a href="../../xml/repartition_graphique.xml">Résultat - Graphiques</a></li>
+<li><a href="../../xml/classement.xml">Résultat - Tableaux</a></li>
+</ul></nav></div>
+<div class="tm-body">
+<div id="services" class="tm-content-box tm-gray-bg tm-services">
+<div class="tm-box-pad">
+<h2 class="tm-section-title">Présentation du projet</h2>
+		<br><div><b>Présentation du corpus</b></div><br>
+        <p>
+				Dans ce projet nous nous focaliserons principalement sur les 800 espèces fictionnelles ainsi que leurs caractéristiques. Pour cela nous avons donc récupéré les données sous format csv sur le site Data.world. https://data.world/data-society/pokemon-with-stats
+			</p>
+<p>
+				Le fichier csv comprend au total les informations de 800 pokémons de la génération 1 à 6, des informations telles que le(s) type(s), les HP (Points de vie), l'attaque, la défense, l'attaque spéciale, la défense spéciale, la vitesse et le fait qu'un pokémon soit légendaire ou non.
+            </p>
+		<div><img src="../img/csv.png"></div><br>
+		<div><a href="../data/CSV/Pokemon.csv" target="_blank"><i>Fichier Pokemon CSV</i></a><br></div>
+		<br><div><b>Traitement des données</b></div><br>
+        <p>
+                Nous avons écrit tout d'abord un script qui permet de transformer le fichier csv en xml afin de travailler dessus.
+            </p>
+<p>
+                 La structure du fichier xml est simple et possède 3 niveaux de balises : la racine « pokemons », ensuite viens « pokemon » avec un attribut « name » qui correspond au nom précis de chaque pokémon et pour finir au troisième niveau nous retrouvons les informations détaillées. Nous avons pris la décision de choisir le nom du pokémon comme attribut et non son numéro de pokédex car certain pokémon possédait le même nom (Mewtwo X, Mewtwo Y par exemple).
+            </p>
+        <iframe src="./csv2xml_script.html" width="1200" height="300"></iframe><br><br>
+		<div><img src="../img/xml.png"></div><br>
+		<div><a href="../../data/XML/Pokemon-v3.xml" target="_blank"><i>Fichier  Pokemon XML</i></a><br></div>
+        <p>
+                Ensuite, nous avons écrit un script script.py qui produit les graphiques que l'on retrouvera dans la page Résultat : Graphique.
+				Tandis que le script tableaux.py produit lui des pages html qui contiennent des tableaux des différents classements que nous avons faits.
+            </p>
+        <iframe src="./script_script.html" width="1200" height="300"></iframe><br><br>
+		<div><a href="../../script/script.py" target="_blank"><i>Script Graphiques</i></a><br></div>
+        <p>
+                Tandis que le script tableaux.py produit lui des pages html qui contiennent des tableaux des différents classements que nous avons faits.
+            </p>
+        <iframe src="./tableaux_script.html" width="1200" height="300"></iframe><br><br>
+        <div><a href="../../script/tableaux.py" target="_blank"><i>Script Tableaux</i></a><br></div>
+    </div>
+</div>
+</div>
+<div class="wrapper row5">
+<div id="copyright" class="hoc clear">
+<p class="fl_left">Master PluriTAL - Xin YU - Emilie XIA - 2019/2020</p>
+</div>
+</div>
+</div>
+<a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
+<script src="../css/scripts/jquery.min.js"></script>
+<script src="../css/scripts/jquery.backtotop.js"></script>
+<script src="../css/scripts/jquery.mobilemenu.js"></script>
+</body>
+</html>

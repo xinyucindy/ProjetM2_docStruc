@@ -1,0 +1,85 @@
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #888888">#!/usr/bin/python</span>
+<span style="color: #888888"># coding: utf-8</span>
+
+<span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">tkinter</span>
+<span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">matplotlib</span>
+matplotlib<span style="color: #333333">.</span>use(<span style="background-color: #fff0f0">&#39;TkAgg&#39;</span>)
+<span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">numpy</span> <span style="color: #008800; font-weight: bold">as</span> <span style="color: #0e84b5; font-weight: bold">np</span>
+<span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">matplotlib.pyplot</span> <span style="color: #008800; font-weight: bold">as</span> <span style="color: #0e84b5; font-weight: bold">plt</span>
+<span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">lxml</span> <span style="color: #008800; font-weight: bold">import</span> etree
+<span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">collections</span> <span style="color: #008800; font-weight: bold">import</span> Counter
+<span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">pylab</span>
+<span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">statistics</span>
+<span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">statistics</span> <span style="color: #008800; font-weight: bold">import</span> mean
+
+xmlfile <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;../data/XML/Pokemon-v3.xml&quot;</span>
+
+TEI_NAMESPACE <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;http://www.tei-c.org/ns/1.0&quot;</span>
+TEI <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;{</span><span style="background-color: #eeeeee">%s</span><span style="background-color: #fff0f0">}&quot;</span> <span style="color: #333333">%</span> TEI_NAMESPACE
+
+<span style="color: #888888"># Initialiser la lecture du fichier</span>
+tree <span style="color: #333333">=</span> etree<span style="color: #333333">.</span>parse(xmlfile)
+root <span style="color: #333333">=</span> tree<span style="color: #333333">.</span>getroot()
+
+<span style="color: #888888"># Graphique - Répartition des pokémons par types</span>
+<span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">types</span>():
+    cnt <span style="color: #333333">=</span> Counter()
+    types <span style="color: #333333">=</span> []
+    nb_types <span style="color: #333333">=</span> []
+
+    <span style="color: #008800; font-weight: bold">for</span> element <span style="color: #000000; font-weight: bold">in</span> root :
+        <span style="color: #008800; font-weight: bold">for</span> child <span style="color: #000000; font-weight: bold">in</span> element : 
+            <span style="color: #008800; font-weight: bold">if</span> <span style="background-color: #fff0f0">&quot;Type&quot;</span> <span style="color: #000000; font-weight: bold">in</span> child<span style="color: #333333">.</span>tag <span style="color: #000000; font-weight: bold">and</span> child<span style="color: #333333">.</span>text <span style="color: #333333">!=</span> <span style="color: #007020">None</span> :
+                cnt[child<span style="color: #333333">.</span>text] <span style="color: #333333">+=</span> <span style="color: #0000DD; font-weight: bold">1</span>
+
+    <span style="color: #008800; font-weight: bold">for</span> a, b <span style="color: #000000; font-weight: bold">in</span> cnt<span style="color: #333333">.</span>items():
+        types<span style="color: #333333">.</span>append(a)
+        nb_types<span style="color: #333333">.</span>append(b)
+
+    plt<span style="color: #333333">.</span>pie(nb_types, labels<span style="color: #333333">=</span>types, autopct<span style="color: #333333">=</span><span style="background-color: #fff0f0">&#39;</span><span style="background-color: #eeeeee">%1.1f%%</span><span style="background-color: #fff0f0">&#39;</span>, startangle<span style="color: #333333">=</span><span style="color: #0000DD; font-weight: bold">90</span>)
+    plt<span style="color: #333333">.</span>axis(<span style="background-color: #fff0f0">&#39;equal&#39;</span>)
+    plt<span style="color: #333333">.</span>savefig(<span style="background-color: #fff0f0">&#39;../web/img/types.png&#39;</span>)
+
+<span style="color: #888888"># Graphique - Nombre de pokémon par génération</span>
+<span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">generations</span>():
+    cnt <span style="color: #333333">=</span> Counter()
+    generation <span style="color: #333333">=</span> []
+    nb_gen <span style="color: #333333">=</span> []
+
+    <span style="color: #008800; font-weight: bold">for</span> element <span style="color: #000000; font-weight: bold">in</span> root :
+        <span style="color: #008800; font-weight: bold">for</span> child <span style="color: #000000; font-weight: bold">in</span> element : 
+            <span style="color: #008800; font-weight: bold">if</span> child<span style="color: #333333">.</span>tag <span style="color: #333333">==</span> <span style="background-color: #fff0f0">&quot;Generation&quot;</span> :
+                cnt[child<span style="color: #333333">.</span>text] <span style="color: #333333">+=</span> <span style="color: #0000DD; font-weight: bold">1</span>
+
+    <span style="color: #008800; font-weight: bold">for</span> c, d <span style="color: #000000; font-weight: bold">in</span> cnt<span style="color: #333333">.</span>items():
+        generation<span style="color: #333333">.</span>append(<span style="background-color: #fff0f0">&quot;Génération : &quot;</span> <span style="color: #333333">+</span> c)
+        nb_gen<span style="color: #333333">.</span>append(d)
+
+    plt<span style="color: #333333">.</span>pie(nb_gen, labels<span style="color: #333333">=</span>generation, autopct<span style="color: #333333">=</span><span style="background-color: #fff0f0">&#39;</span><span style="background-color: #eeeeee">%1.1f%%</span><span style="background-color: #fff0f0">&#39;</span>, startangle<span style="color: #333333">=</span><span style="color: #0000DD; font-weight: bold">90</span>)
+    plt<span style="color: #333333">.</span>axis(<span style="background-color: #fff0f0">&#39;equal&#39;</span>)
+    plt<span style="color: #333333">.</span>savefig(<span style="background-color: #fff0f0">&#39;../web/img/generations.png&#39;</span>)
+
+<span style="color: #888888"># Graphique - Légendaire sur tous les pokémons</span>
+<span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">legends</span>():
+    compteur_legend <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>
+
+    <span style="color: #008800; font-weight: bold">for</span> element <span style="color: #000000; font-weight: bold">in</span> root :
+        <span style="color: #008800; font-weight: bold">for</span> child <span style="color: #000000; font-weight: bold">in</span> element : 
+            <span style="color: #008800; font-weight: bold">if</span> child<span style="color: #333333">.</span>tag <span style="color: #333333">==</span> <span style="background-color: #fff0f0">&quot;Legendary&quot;</span> <span style="color: #000000; font-weight: bold">and</span> child<span style="color: #333333">.</span>text <span style="color: #333333">==</span> <span style="background-color: #fff0f0">&quot;True&quot;</span>:
+                compteur_legend <span style="color: #333333">+=</span> <span style="color: #0000DD; font-weight: bold">1</span>
+
+    non_legend <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">800</span> <span style="color: #333333">-</span> compteur_legend
+
+    label <span style="color: #333333">=</span> [<span style="background-color: #fff0f0">&quot;Légendaire&quot;</span>, <span style="background-color: #fff0f0">&quot;Non Légendaire&quot;</span>]
+    result <span style="color: #333333">=</span> [compteur_legend, non_legend]
+
+    plt<span style="color: #333333">.</span>pie(result, labels<span style="color: #333333">=</span>label, autopct<span style="color: #333333">=</span><span style="background-color: #fff0f0">&#39;</span><span style="background-color: #eeeeee">%1.1f%%</span><span style="background-color: #fff0f0">&#39;</span>, startangle<span style="color: #333333">=</span><span style="color: #0000DD; font-weight: bold">90</span>)
+    plt<span style="color: #333333">.</span>axis(<span style="background-color: #fff0f0">&#39;equal&#39;</span>)
+    plt<span style="color: #333333">.</span>savefig(<span style="background-color: #fff0f0">&#39;../web/img/legends.png&#39;</span>)
+
+types()
+plt<span style="color: #333333">.</span>clf()
+generations()
+plt<span style="color: #333333">.</span>clf()
+legends()
+</pre></div>

@@ -1,0 +1,59 @@
+<?xml encoding="UTF-8"?>
+
+<!ELEMENT pokemons (pokemon)+>
+<!ATTLIST pokemons
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT pokemon (Number,Type1,Type2,Total,HP,Attack,Defense,Sp_Atk,
+                   Sp_Def,Speed,Generation,Legendary)>
+<!ATTLIST pokemon
+  xmlns CDATA #FIXED ''
+  name CDATA #REQUIRED>
+
+<!ELEMENT Number (#PCDATA)>
+<!ATTLIST Number
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT Type1 (#PCDATA)>
+<!ATTLIST Type1
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT Type2 (#PCDATA)>
+<!ATTLIST Type2
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT Total (#PCDATA)>
+<!ATTLIST Total
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT HP (#PCDATA)>
+<!ATTLIST HP
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT Attack (#PCDATA)>
+<!ATTLIST Attack
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT Defense (#PCDATA)>
+<!ATTLIST Defense
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT Sp_Atk (#PCDATA)>
+<!ATTLIST Sp_Atk
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT Sp_Def (#PCDATA)>
+<!ATTLIST Sp_Def
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT Speed (#PCDATA)>
+<!ATTLIST Speed
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT Generation (#PCDATA)>
+<!ATTLIST Generation
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT Legendary (#PCDATA)>
+<!ATTLIST Legendary
+  xmlns CDATA #FIXED ''>

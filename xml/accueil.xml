@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../transformation/accueil.xsl"?>
+<page>
+<entete>
+	<cours>Document Structuré</cours>
+	<parcours>Master PLuriTal</parcours>
+	<auteur>Xin YU - Emilie XIA</auteur>
+</entete>
+<contenu>
+	<description>
+		<titre>Introduction</titre>
+		<p>Nous nous présentons, nous sommes YU Xin et XIA Emilie de M2 TAL à l’Inalco. Ce projet est un projet qui a été fait dans le cadre du cours Document Structuré du premier semestre de l’année 2019-2020, dispensé par Arthur Provenier.</p>
+		<p>Pour ce projet nous avons décidé de travailler sur le thème des Pokémons.</p>
+		<p>Pokémon est une franchise créée par Satoshi Tajiri en 1996, présente en particulier en jeu vidéo, dans des séries éditées par Nintendo. En plus des jeux vidéos la franchise est également exploitée sous forme d’anime, de mangas, et de jeux de cartes à collectionner.</p>
+		<p>Dans la série animée homonyme, le personnage principal, Sacha, voyage à travers diverses régions fictives dans le but d’attraper de nouvelles sortes de monstres éponymes, un concept qu’on retrouve également dans les jeux vidéo de la franchise.</p>
+		<p>Le terme Pokémon, en plus de référer à la franchise Pokémon elle-même, réfère donc aussi collectivement aux 890 espèces fictionnelles réparties en huit générations Pokémon.</p>
+		<p>Dans ce site, vous trouverez une page qui présente globalement le projet et les pages qui montrent les résultats finaux.</p>
+	</description>
+	<problematique>
+		<titre>Problématique</titre>
+		<p>- Répartition des pokémons par types (graphique).</p>
+		<p>- Répartition des pokémons par générations (graphique).</p>
+		<p>- Répartition du nombre de pokémons légendaire sur tous les pokémons (graphique).</p>
+		<p>- Classement des pokémons les plus puissants d’après leurs statistiques totales.</p>
+		<p>- Classement des pokémons Légendaires d'après leurs statistiques totales.</p>
+		<p>- Classement des 10 meilleurs pokémons en attaque.</p>
+		<p>- Classement des 10 meilleurs pokémons en défense.</p>
+		<p>Bonne visite !</p>
+	</problematique>
+	<pages>
+		<page id="Résultat_0">
+            <idno>Présentation</idno>
+            <descExo>Présentation du projet</descExo>
+			<lien>../web/html/resultat.html</lien>
+        </page>
+		<page id="Résultat_1">
+            <idno>Résultat : Répartition en graphique</idno>
+            <descExo>Répartition des pokémons</descExo>
+			<lien>./repartition_graphique.xml</lien>
+        </page>
+		<page id="Résultat_2">
+            <idno>Résultat : Classement tableau</idno>
+            <descExo>Classement des pokémons</descExo>
+			<lien>./classement.xml</lien>
+        </page>
+	</pages>
+	<presentation>
+		<auteur>
+			<titre>A propos</titre>
+			<nom>Xin YU</nom>
+			<mail>Mail : silviayuxin16@gmail.com</mail>
+			<intro>Après avoir obtenu une double licence en Management du Tourisme et une licence professionnelle en Conception, rédaction et Réalisation Web, je me suis orientée en Master Traitement automatique des langues à l'Inalco.</intro>
+		</auteur>
+		<auteur>
+			<nom>Emilie XIA</nom>
+			<mail>Mail : emiliexia093@gmail.com</mail>
+			<intro>Après une licence Langues littérature et civilisations étrangères et régionales Chinois, je me suis tournée vers un Master Traitement automatique des langues à l'Inalco.</intro>
+		</auteur>
+	</presentation>
+	<projet1>La vie multilingue du mot Mariage sur le web</projet1>
+	<projet2>Fils RSS du Monde</projet2>
+</contenu>
+<foot>
+	<nom>Réalisé par Xin YU | Emilie XIA | </nom>
+	<annee>2019-2020 | </annee>
+	<design>Design Templatemo</design>
+</foot>
+</page>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../transformation/resultats.xsl"?>
+<page>
+    <t>Résultat : Classement en tableau</t>
+    <titre>Classement</titre>
+    <contenu>
+        <partie>
+            <pp>
+                Ici vous retrouverez les tableaux HTML que l'on a produit à partir du script python en bas de page.
+            </pp>
+        </partie>
+        <partie>
+            <presentation>
+                Classement des pokémons les plus puissants d’après leurs statistiques totales.
+            </presentation>
+        </partie>
+        <code>../web/html/total_attrib.html</code>
+        <partie>
+            <presentation>
+                Classement des pokémons Légendaires d'après leurs statistiques totales.
+            </presentation>
+        </partie>
+        <code>../web/html/total_attrib_legend.html</code>
+        <partie>
+            <presentation>
+                Classement des 10 meilleurs pokémons en attaque.
+            </presentation>
+        </partie>
+        <code>../web/html/classement_10_Attaque.html</code>
+        <partie>
+            <presentation>
+                Classement des 10 meilleurs pokémons en défense.
+            </presentation>
+        </partie>
+        <code>../web/html/classement_10_Défense.html</code>
+        <telechargement>
+            <fichier>
+                <texte>Script Tableaux</texte>
+                <lien>../script/tableaux.py</lien>
+            </fichier>
+        </telechargement>
+    </contenu>
+</page>

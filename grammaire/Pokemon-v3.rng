@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <start>
+    <element name="pokemons">
+      <oneOrMore>
+        <element name="pokemon">
+          <attribute name="name"/>
+          <element name="Number">
+            <data type="integer"/>
+          </element>
+          <element name="Type1">
+            <data type="NCName"/>
+          </element>
+          <element name="Type2">
+            <text/>
+          </element>
+          <element name="Total">
+            <data type="integer"/>
+          </element>
+          <element name="HP">
+            <data type="integer"/>
+          </element>
+          <element name="Attack">
+            <data type="integer"/>
+          </element>
+          <element name="Defense">
+            <data type="integer"/>
+          </element>
+          <element name="Sp_Atk">
+            <data type="integer"/>
+          </element>
+          <element name="Sp_Def">
+            <data type="integer"/>
+          </element>
+          <element name="Speed">
+            <data type="integer"/>
+          </element>
+          <element name="Generation">
+            <data type="integer"/>
+          </element>
+          <element name="Legendary">
+            <data type="NCName"/>
+          </element>
+        </element>
+      </oneOrMore>
+    </element>
+  </start>
+</grammar>
