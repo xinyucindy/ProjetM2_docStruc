@@ -4,13 +4,9 @@
 import tkinter
 import matplotlib
 matplotlib.use('TkAgg')
-import numpy as np
 import matplotlib.pyplot as plt
 from lxml import etree
 from collections import Counter
-import pylab
-import statistics
-from statistics import mean
 
 xmlfile = "../data/XML/Pokemon-v3.xml"
 
