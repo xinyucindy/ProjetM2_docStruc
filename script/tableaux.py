@@ -85,7 +85,7 @@ def classement_attrib_legend():
 
     return create_html_tab(tab_total, cols, tab_name)
 
-def classement_10(categorie):
+def classement_10_Attaque():
     tab_total = {}
     for element in root :
         liste_dico = []
@@ -96,8 +96,8 @@ def classement_10(categorie):
         tab_total[element.attrib['name']] = liste_dico
     tab_total = sorted(tab_total.items(), key=lambda x:x[1][3], reverse=True)
 
-    cols = "Nom pokémon, Génération, " + categorie + ", " + categorie + " spéciale, Total " + categorie + "\n"
-    tab_name = "classement_10_" + categorie
+    cols = "Nom pokémon, Génération, Défense, Défense spéciale, Total Défense \n"
+    tab_name = "classement_10_Attaque"
 
     liste_frmt = []
     for i in tab_total[0:10]:
@@ -111,7 +111,33 @@ def classement_10(categorie):
 
     return create_html_tab(tab_total, cols, tab_name)
 
-classement_10("Attaque")
-classement_10("Défense")
+def classement_10_Defense():
+    tab_total = {}
+    for element in root :
+        liste_dico = []
+        liste_dico.append(element[10].text)
+        liste_dico.append(element[6].text)
+        liste_dico.append(element[8].text)
+        liste_dico.append(int(element[6].text) + int(element[8].text))
+        tab_total[element.attrib['name']] = liste_dico
+    tab_total = sorted(tab_total.items(), key=lambda x:x[1][3], reverse=True)
+
+    cols = "Nom pokémon, Génération, Défense, Défense spéciale, Total Défense \n"
+    tab_name = "classement_10_Défense"
+
+    liste_frmt = []
+    for i in tab_total[0:10]:
+        for t in i :
+            frmt = []
+            frmt.append(i[0])
+            frmt.append(str(i[1][0]) + ", " + str(i[1][1]) + ", " + str(i[1][2]) + ", " + str(i[1][3]))
+        liste_frmt.append(frmt)
+
+    tab_total = [tuple(i) for i in liste_frmt]
+
+    return create_html_tab(tab_total, cols, tab_name)
+
+classement_10_Attaque()
+classement_10_Defense()
 classement_attrib()
 classement_attrib_legend()
