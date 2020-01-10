@@ -1,118 +1,145 @@
 <!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #888888">#!/usr/bin/python</span>
-<span style="color: #888888"># coding: utf-8</span>
+    <span style="color: #888888"># coding: utf-8</span>
 
-<span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">os</span>
-<span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">lxml</span> <span style="color: #008800; font-weight: bold">import</span> etree
-<span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">operator</span> <span style="color: #008800; font-weight: bold">import</span> itemgetter
-
-xmlfile <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;../data/XML/Pokemon-v3.xml&quot;</span>
-
-TEI_NAMESPACE <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;http://www.tei-c.org/ns/1.0&quot;</span>
-TEI <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;{</span><span style="background-color: #eeeeee">%s</span><span style="background-color: #fff0f0">}&quot;</span> <span style="color: #333333">%</span> TEI_NAMESPACE
-
-<span style="color: #888888"># Initialiser la lecture du fichier</span>
-tree <span style="color: #333333">=</span> etree<span style="color: #333333">.</span>parse(xmlfile)
-root <span style="color: #333333">=</span> tree<span style="color: #333333">.</span>getroot()
-
-<span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">wrap</span>(a, tag):
-    <span style="background-color: #fff0f0">&quot;Permet d&#39;envelopper le texte dans des &lt;td&gt;&quot;</span>
-    tag1 <span style="color: #333333">=</span> tag
-    <span style="color: #008800; font-weight: bold">if</span> tag <span style="color: #333333">==</span> <span style="background-color: #fff0f0">&quot;table&quot;</span>:
-        tag1 <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;table border=1 align=&#39;center&#39; bgcolor=FDE7EE&quot;</span>
-    <span style="color: #008800; font-weight: bold">if</span> tag <span style="color: #333333">==</span> <span style="background-color: #fff0f0">&quot;td&quot;</span> <span style="color: #000000; font-weight: bold">and</span> a<span style="color: #333333">.</span>strip()<span style="color: #333333">.</span>replace(<span style="background-color: #fff0f0">&quot;.&quot;</span>, <span style="background-color: #fff0f0">&quot;&quot;</span>)<span style="color: #333333">.</span>isdigit():
-        tag1 <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;td style=</span><span style="color: #666666; font-weight: bold; background-color: #fff0f0">\&quot;</span><span style="background-color: #fff0f0">text-align:center</span><span style="color: #666666; font-weight: bold; background-color: #fff0f0">\&quot;</span><span style="background-color: #fff0f0">&quot;</span>
-    <span style="color: #008800; font-weight: bold">return</span> <span style="background-color: #fff0f0">&quot;&lt;{}&gt;{}&lt;/{}&gt;&quot;</span><span style="color: #333333">.</span>format(tag1,a,tag)
-
-<span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">split</span>(tab):
-    <span style="background-color: #fff0f0">&quot;Sépare une string de plusieurs lignes en une liste d&#39;items divisé par des virgules pour chaque colonne&quot;</span>
-    tab <span style="color: #333333">=</span> tab<span style="color: #333333">.</span>splitlines()
-    <span style="color: #008800; font-weight: bold">for</span> n, row <span style="color: #000000; font-weight: bold">in</span> <span style="color: #007020">enumerate</span>(tab):
-        tab[n] <span style="color: #333333">=</span> row<span style="color: #333333">.</span>split(<span style="background-color: #fff0f0">&quot;,&quot;</span>)
-    <span style="color: #008800; font-weight: bold">return</span> tab
- 
-<span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">table</span>(tab):
-    html <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&#39;&#39;</span>  <span style="color: #888888"># va contenir l&#39;html</span>
-    <span style="color: #008800; font-weight: bold">for</span> n, x <span style="color: #000000; font-weight: bold">in</span> <span style="color: #007020">enumerate</span>(tab):
-        <span style="color: #008800; font-weight: bold">for</span> a <span style="color: #000000; font-weight: bold">in</span> x:
-            html <span style="color: #333333">+=</span> wrap(a, <span style="background-color: #fff0f0">&quot;td style=</span><span style="color: #666666; font-weight: bold; background-color: #fff0f0">\&quot;</span><span style="background-color: #fff0f0">text-align:center</span><span style="color: #666666; font-weight: bold; background-color: #fff0f0">\&quot;</span><span style="background-color: #fff0f0">&quot;</span>)
-        html <span style="color: #333333">+=</span> <span style="background-color: #fff0f0">&quot;&lt;tr&gt;&quot;</span>
-    html <span style="color: #333333">=</span> wrap(html, <span style="background-color: #fff0f0">&quot;table&quot;</span>)
-    <span style="color: #008800; font-weight: bold">return</span> html
-
-<span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">create_html_tab</span>(tab_string, cols_name, tab_name):
-    <span style="background-color: #fff0f0">&quot;permet de créer un tableau en html&quot;</span>
-    tab_str <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;</span><span style="color: #666666; font-weight: bold; background-color: #fff0f0">\n</span><span style="background-color: #fff0f0">&quot;</span><span style="color: #333333">.</span>join(<span style="background-color: #fff0f0">&quot;</span><span style="background-color: #eeeeee">%s</span><span style="background-color: #fff0f0">, </span><span style="background-color: #eeeeee">%s</span><span style="background-color: #fff0f0">&quot;</span> <span style="color: #333333">%</span> tup <span style="color: #008800; font-weight: bold">for</span> tup <span style="color: #000000; font-weight: bold">in</span> tab_string)
-
-    tab_strs <span style="color: #333333">=</span> cols_name <span style="color: #333333">+</span> tab_str
-
-    data <span style="color: #333333">=</span> table(split(tab_strs))
-
-    <span style="color: #008800; font-weight: bold">with</span> <span style="color: #007020">open</span>(<span style="background-color: #fff0f0">&quot;../web/html/&quot;</span> <span style="color: #333333">+</span> tab_name <span style="color: #333333">+</span> <span style="background-color: #fff0f0">&quot;.html&quot;</span>, <span style="background-color: #fff0f0">&quot;w&quot;</span>, encoding<span style="color: #333333">=</span><span style="background-color: #fff0f0">&quot;utf-8&quot;</span>) <span style="color: #008800; font-weight: bold">as</span> filehtml:
-        filehtml<span style="color: #333333">.</span>write(data)
-
-<span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">classement_attrib</span>():
-
-    tab_total <span style="color: #333333">=</span> {}
-    <span style="color: #008800; font-weight: bold">for</span> element <span style="color: #000000; font-weight: bold">in</span> root :
-        tab_total[element<span style="color: #333333">.</span>attrib[<span style="background-color: #fff0f0">&#39;name&#39;</span>]] <span style="color: #333333">=</span> element[<span style="color: #0000DD; font-weight: bold">3</span>]<span style="color: #333333">.</span>text
-    tab_total <span style="color: #333333">=</span> <span style="color: #007020">sorted</span>(tab_total<span style="color: #333333">.</span>items(), key<span style="color: #333333">=</span>itemgetter(<span style="color: #0000DD; font-weight: bold">1</span>), reverse<span style="color: #333333">=</span><span style="color: #007020">True</span>)
-
-    cols <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;Nom pokémon, Total des attributs</span><span style="color: #666666; font-weight: bold; background-color: #fff0f0">\n</span><span style="background-color: #fff0f0">&quot;</span>
-    tab_name <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;total_attrib&quot;</span>
+    <span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">os</span>
+    <span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">lxml</span> <span style="color: #008800; font-weight: bold">import</span> etree
+    <span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">operator</span> <span style="color: #008800; font-weight: bold">import</span> itemgetter
     
-    <span style="color: #008800; font-weight: bold">return</span> create_html_tab(tab_total, cols, tab_name)
-
-<span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">classement_attrib_legend</span>():
-    tab_total <span style="color: #333333">=</span> {}
-    <span style="color: #008800; font-weight: bold">for</span> element <span style="color: #000000; font-weight: bold">in</span> root :
-        <span style="color: #008800; font-weight: bold">for</span> child <span style="color: #000000; font-weight: bold">in</span> element :
+    xmlfile <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;../data/XML/Pokemon-v3.xml&quot;</span>
+    
+    TEI_NAMESPACE <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;http://www.tei-c.org/ns/1.0&quot;</span>
+    TEI <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;{</span><span style="background-color: #eeeeee">%s</span><span style="background-color: #fff0f0">}&quot;</span> <span style="color: #333333">%</span> TEI_NAMESPACE
+    
+    <span style="color: #888888"># Initialiser la lecture du fichier</span>
+    tree <span style="color: #333333">=</span> etree<span style="color: #333333">.</span>parse(xmlfile)
+    root <span style="color: #333333">=</span> tree<span style="color: #333333">.</span>getroot()
+    
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">wrap</span>(a, tag):
+        <span style="background-color: #fff0f0">&quot;Permet d&#39;envelopper le texte dans des &lt;td&gt;&quot;</span>
+        tag1 <span style="color: #333333">=</span> tag
+        <span style="color: #008800; font-weight: bold">if</span> tag <span style="color: #333333">==</span> <span style="background-color: #fff0f0">&quot;table&quot;</span>:
+            tag1 <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;table border=1 align=&#39;center&#39; bgcolor=FDE7EE&quot;</span>
+        <span style="color: #008800; font-weight: bold">if</span> tag <span style="color: #333333">==</span> <span style="background-color: #fff0f0">&quot;td&quot;</span> <span style="color: #000000; font-weight: bold">and</span> a<span style="color: #333333">.</span>strip()<span style="color: #333333">.</span>replace(<span style="background-color: #fff0f0">&quot;.&quot;</span>, <span style="background-color: #fff0f0">&quot;&quot;</span>)<span style="color: #333333">.</span>isdigit():
+            tag1 <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;td style=</span><span style="color: #666666; font-weight: bold; background-color: #fff0f0">\&quot;</span><span style="background-color: #fff0f0">text-align:center</span><span style="color: #666666; font-weight: bold; background-color: #fff0f0">\&quot;</span><span style="background-color: #fff0f0">&quot;</span>
+        <span style="color: #008800; font-weight: bold">return</span> <span style="background-color: #fff0f0">&quot;&lt;{}&gt;{}&lt;/{}&gt;&quot;</span><span style="color: #333333">.</span>format(tag1,a,tag)
+    
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">split</span>(tab):
+        <span style="background-color: #fff0f0">&quot;Sépare une string de plusieurs lignes en une liste d&#39;items divisé par des virgules pour chaque colonne&quot;</span>
+        tab <span style="color: #333333">=</span> tab<span style="color: #333333">.</span>splitlines()
+        <span style="color: #008800; font-weight: bold">for</span> n, row <span style="color: #000000; font-weight: bold">in</span> <span style="color: #007020">enumerate</span>(tab):
+            tab[n] <span style="color: #333333">=</span> row<span style="color: #333333">.</span>split(<span style="background-color: #fff0f0">&quot;,&quot;</span>)
+        <span style="color: #008800; font-weight: bold">return</span> tab
+     
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">table</span>(tab):
+        html <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&#39;&#39;</span>  <span style="color: #888888"># va contenir l&#39;html</span>
+        <span style="color: #008800; font-weight: bold">for</span> n, x <span style="color: #000000; font-weight: bold">in</span> <span style="color: #007020">enumerate</span>(tab):
+            <span style="color: #008800; font-weight: bold">for</span> a <span style="color: #000000; font-weight: bold">in</span> x:
+                html <span style="color: #333333">+=</span> wrap(a, <span style="background-color: #fff0f0">&quot;td style=</span><span style="color: #666666; font-weight: bold; background-color: #fff0f0">\&quot;</span><span style="background-color: #fff0f0">text-align:center</span><span style="color: #666666; font-weight: bold; background-color: #fff0f0">\&quot;</span><span style="background-color: #fff0f0">&quot;</span>)
+            html <span style="color: #333333">+=</span> <span style="background-color: #fff0f0">&quot;&lt;tr&gt;&quot;</span>
+        html <span style="color: #333333">=</span> wrap(html, <span style="background-color: #fff0f0">&quot;table&quot;</span>)
+        <span style="color: #008800; font-weight: bold">return</span> html
+    
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">create_html_tab</span>(tab_string, cols_name, tab_name):
+        <span style="background-color: #fff0f0">&quot;permet de créer un tableau en html&quot;</span>
+        tab_str <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;</span><span style="color: #666666; font-weight: bold; background-color: #fff0f0">\n</span><span style="background-color: #fff0f0">&quot;</span><span style="color: #333333">.</span>join(<span style="background-color: #fff0f0">&quot;</span><span style="background-color: #eeeeee">%s</span><span style="background-color: #fff0f0">, </span><span style="background-color: #eeeeee">%s</span><span style="background-color: #fff0f0">&quot;</span> <span style="color: #333333">%</span> tup <span style="color: #008800; font-weight: bold">for</span> tup <span style="color: #000000; font-weight: bold">in</span> tab_string)
+    
+        tab_strs <span style="color: #333333">=</span> cols_name <span style="color: #333333">+</span> tab_str
+    
+        data <span style="color: #333333">=</span> table(split(tab_strs))
+    
+        <span style="color: #008800; font-weight: bold">with</span> <span style="color: #007020">open</span>(<span style="background-color: #fff0f0">&quot;../web/html/&quot;</span> <span style="color: #333333">+</span> tab_name <span style="color: #333333">+</span> <span style="background-color: #fff0f0">&quot;.html&quot;</span>, <span style="background-color: #fff0f0">&quot;w&quot;</span>, encoding<span style="color: #333333">=</span><span style="background-color: #fff0f0">&quot;utf-8&quot;</span>) <span style="color: #008800; font-weight: bold">as</span> filehtml:
+            filehtml<span style="color: #333333">.</span>write(data)
+    
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">classement_attrib</span>():
+    
+        tab_total <span style="color: #333333">=</span> {}
+        <span style="color: #008800; font-weight: bold">for</span> element <span style="color: #000000; font-weight: bold">in</span> root :
+            tab_total[element<span style="color: #333333">.</span>attrib[<span style="background-color: #fff0f0">&#39;name&#39;</span>]] <span style="color: #333333">=</span> element[<span style="color: #0000DD; font-weight: bold">3</span>]<span style="color: #333333">.</span>text
+        tab_total <span style="color: #333333">=</span> <span style="color: #007020">sorted</span>(tab_total<span style="color: #333333">.</span>items(), key<span style="color: #333333">=</span>itemgetter(<span style="color: #0000DD; font-weight: bold">1</span>), reverse<span style="color: #333333">=</span><span style="color: #007020">True</span>)
+    
+        cols <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;Nom pokémon, Total des attributs</span><span style="color: #666666; font-weight: bold; background-color: #fff0f0">\n</span><span style="background-color: #fff0f0">&quot;</span>
+        tab_name <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;total_attrib&quot;</span>
+        
+        <span style="color: #008800; font-weight: bold">return</span> create_html_tab(tab_total, cols, tab_name)
+    
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">classement_attrib_legend</span>():
+        tab_total <span style="color: #333333">=</span> {}
+        <span style="color: #008800; font-weight: bold">for</span> element <span style="color: #000000; font-weight: bold">in</span> root :
+            <span style="color: #008800; font-weight: bold">for</span> child <span style="color: #000000; font-weight: bold">in</span> element :
+                liste_dico <span style="color: #333333">=</span> []
+                <span style="color: #008800; font-weight: bold">if</span> child<span style="color: #333333">.</span>tag <span style="color: #333333">==</span> <span style="background-color: #fff0f0">&quot;Legendary&quot;</span> <span style="color: #000000; font-weight: bold">and</span> child<span style="color: #333333">.</span>text <span style="color: #333333">==</span> <span style="background-color: #fff0f0">&quot;True&quot;</span>:
+                    liste_dico<span style="color: #333333">.</span>append(element[<span style="color: #0000DD; font-weight: bold">3</span>]<span style="color: #333333">.</span>text <span style="color: #333333">+</span> <span style="background-color: #fff0f0">&quot;, &quot;</span>)
+                    liste_dico<span style="color: #333333">.</span>append(element[<span style="color: #0000DD; font-weight: bold">10</span>]<span style="color: #333333">.</span>text)
+                    tab_total[element<span style="color: #333333">.</span>attrib[<span style="background-color: #fff0f0">&#39;name&#39;</span>]] <span style="color: #333333">=</span> liste_dico
+        tab_total <span style="color: #333333">=</span> <span style="color: #007020">sorted</span>(tab_total<span style="color: #333333">.</span>items(), key<span style="color: #333333">=</span><span style="color: #008800; font-weight: bold">lambda</span> x:x[<span style="color: #0000DD; font-weight: bold">1</span>][<span style="color: #0000DD; font-weight: bold">0</span>], reverse<span style="color: #333333">=</span><span style="color: #007020">True</span>)
+    
+        cols <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;Nom pokémon, Total des attributs, Génération</span><span style="color: #666666; font-weight: bold; background-color: #fff0f0">\n</span><span style="background-color: #fff0f0">&quot;</span>
+        tab_name <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;total_attrib_legend&quot;</span>
+    
+        liste_frmt <span style="color: #333333">=</span> []
+        <span style="color: #008800; font-weight: bold">for</span> i <span style="color: #000000; font-weight: bold">in</span> tab_total:
+            frmt <span style="color: #333333">=</span> [<span style="background-color: #fff0f0">&quot;&quot;</span><span style="color: #333333">.</span>join(t) <span style="color: #008800; font-weight: bold">for</span> t <span style="color: #000000; font-weight: bold">in</span> i]
+            liste_frmt<span style="color: #333333">.</span>append(frmt)
+    
+        tab_total <span style="color: #333333">=</span> [<span style="color: #007020">tuple</span>(i) <span style="color: #008800; font-weight: bold">for</span> i <span style="color: #000000; font-weight: bold">in</span> liste_frmt]
+    
+        <span style="color: #008800; font-weight: bold">return</span> create_html_tab(tab_total, cols, tab_name)
+    
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">classement_10_Attaque</span>():
+        tab_total <span style="color: #333333">=</span> {}
+        <span style="color: #008800; font-weight: bold">for</span> element <span style="color: #000000; font-weight: bold">in</span> root :
             liste_dico <span style="color: #333333">=</span> []
-            <span style="color: #008800; font-weight: bold">if</span> child<span style="color: #333333">.</span>tag <span style="color: #333333">==</span> <span style="background-color: #fff0f0">&quot;Legendary&quot;</span> <span style="color: #000000; font-weight: bold">and</span> child<span style="color: #333333">.</span>text <span style="color: #333333">==</span> <span style="background-color: #fff0f0">&quot;True&quot;</span>:
-                liste_dico<span style="color: #333333">.</span>append(element[<span style="color: #0000DD; font-weight: bold">3</span>]<span style="color: #333333">.</span>text <span style="color: #333333">+</span> <span style="background-color: #fff0f0">&quot;, &quot;</span>)
-                liste_dico<span style="color: #333333">.</span>append(element[<span style="color: #0000DD; font-weight: bold">10</span>]<span style="color: #333333">.</span>text)
-                tab_total[element<span style="color: #333333">.</span>attrib[<span style="background-color: #fff0f0">&#39;name&#39;</span>]] <span style="color: #333333">=</span> liste_dico
-    tab_total <span style="color: #333333">=</span> <span style="color: #007020">sorted</span>(tab_total<span style="color: #333333">.</span>items(), key<span style="color: #333333">=</span><span style="color: #008800; font-weight: bold">lambda</span> x:x[<span style="color: #0000DD; font-weight: bold">1</span>][<span style="color: #0000DD; font-weight: bold">0</span>], reverse<span style="color: #333333">=</span><span style="color: #007020">True</span>)
-
-    cols <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;Nom pokémon, Total des attributs, Génération</span><span style="color: #666666; font-weight: bold; background-color: #fff0f0">\n</span><span style="background-color: #fff0f0">&quot;</span>
-    tab_name <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;total_attrib_legend&quot;</span>
-
-    liste_frmt <span style="color: #333333">=</span> []
-    <span style="color: #008800; font-weight: bold">for</span> i <span style="color: #000000; font-weight: bold">in</span> tab_total:
-        frmt <span style="color: #333333">=</span> [<span style="background-color: #fff0f0">&quot;&quot;</span><span style="color: #333333">.</span>join(t) <span style="color: #008800; font-weight: bold">for</span> t <span style="color: #000000; font-weight: bold">in</span> i]
-        liste_frmt<span style="color: #333333">.</span>append(frmt)
-
-    tab_total <span style="color: #333333">=</span> [<span style="color: #007020">tuple</span>(i) <span style="color: #008800; font-weight: bold">for</span> i <span style="color: #000000; font-weight: bold">in</span> liste_frmt]
-
-    <span style="color: #008800; font-weight: bold">return</span> create_html_tab(tab_total, cols, tab_name)
-
-<span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">classement_10</span>(categorie):
-    tab_total <span style="color: #333333">=</span> {}
-    <span style="color: #008800; font-weight: bold">for</span> element <span style="color: #000000; font-weight: bold">in</span> root :
-        liste_dico <span style="color: #333333">=</span> []
-        liste_dico<span style="color: #333333">.</span>append(element[<span style="color: #0000DD; font-weight: bold">10</span>]<span style="color: #333333">.</span>text)
-        liste_dico<span style="color: #333333">.</span>append(element[<span style="color: #0000DD; font-weight: bold">5</span>]<span style="color: #333333">.</span>text)
-        liste_dico<span style="color: #333333">.</span>append(element[<span style="color: #0000DD; font-weight: bold">7</span>]<span style="color: #333333">.</span>text)
-        liste_dico<span style="color: #333333">.</span>append(<span style="color: #007020">int</span>(element[<span style="color: #0000DD; font-weight: bold">5</span>]<span style="color: #333333">.</span>text) <span style="color: #333333">+</span> <span style="color: #007020">int</span>(element[<span style="color: #0000DD; font-weight: bold">7</span>]<span style="color: #333333">.</span>text))
-        tab_total[element<span style="color: #333333">.</span>attrib[<span style="background-color: #fff0f0">&#39;name&#39;</span>]] <span style="color: #333333">=</span> liste_dico
-    tab_total <span style="color: #333333">=</span> <span style="color: #007020">sorted</span>(tab_total<span style="color: #333333">.</span>items(), key<span style="color: #333333">=</span><span style="color: #008800; font-weight: bold">lambda</span> x:x[<span style="color: #0000DD; font-weight: bold">1</span>][<span style="color: #0000DD; font-weight: bold">3</span>], reverse<span style="color: #333333">=</span><span style="color: #007020">True</span>)
-
-    cols <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;Nom pokémon, Génération, &quot;</span> <span style="color: #333333">+</span> categorie <span style="color: #333333">+</span> <span style="background-color: #fff0f0">&quot;, &quot;</span> <span style="color: #333333">+</span> categorie <span style="color: #333333">+</span> <span style="background-color: #fff0f0">&quot; spéciale, Total &quot;</span> <span style="color: #333333">+</span> categorie <span style="color: #333333">+</span> <span style="background-color: #fff0f0">&quot;</span><span style="color: #666666; font-weight: bold; background-color: #fff0f0">\n</span><span style="background-color: #fff0f0">&quot;</span>
-    tab_name <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;classement_10_&quot;</span> <span style="color: #333333">+</span> categorie
-
-    liste_frmt <span style="color: #333333">=</span> []
-    <span style="color: #008800; font-weight: bold">for</span> i <span style="color: #000000; font-weight: bold">in</span> tab_total[<span style="color: #0000DD; font-weight: bold">0</span>:<span style="color: #0000DD; font-weight: bold">10</span>]:
-        <span style="color: #008800; font-weight: bold">for</span> t <span style="color: #000000; font-weight: bold">in</span> i :
-            frmt <span style="color: #333333">=</span> []
-            frmt<span style="color: #333333">.</span>append(i[<span style="color: #0000DD; font-weight: bold">0</span>])
-            frmt<span style="color: #333333">.</span>append(<span style="color: #007020">str</span>(i[<span style="color: #0000DD; font-weight: bold">1</span>][<span style="color: #0000DD; font-weight: bold">0</span>]) <span style="color: #333333">+</span> <span style="background-color: #fff0f0">&quot;, &quot;</span> <span style="color: #333333">+</span> <span style="color: #007020">str</span>(i[<span style="color: #0000DD; font-weight: bold">1</span>][<span style="color: #0000DD; font-weight: bold">1</span>]) <span style="color: #333333">+</span> <span style="background-color: #fff0f0">&quot;, &quot;</span> <span style="color: #333333">+</span> <span style="color: #007020">str</span>(i[<span style="color: #0000DD; font-weight: bold">1</span>][<span style="color: #0000DD; font-weight: bold">2</span>]) <span style="color: #333333">+</span> <span style="background-color: #fff0f0">&quot;, &quot;</span> <span style="color: #333333">+</span> <span style="color: #007020">str</span>(i[<span style="color: #0000DD; font-weight: bold">1</span>][<span style="color: #0000DD; font-weight: bold">3</span>]))
-        liste_frmt<span style="color: #333333">.</span>append(frmt)
-
-    tab_total <span style="color: #333333">=</span> [<span style="color: #007020">tuple</span>(i) <span style="color: #008800; font-weight: bold">for</span> i <span style="color: #000000; font-weight: bold">in</span> liste_frmt]
-
-    <span style="color: #008800; font-weight: bold">return</span> create_html_tab(tab_total, cols, tab_name)
-
-classement_10(<span style="background-color: #fff0f0">&quot;Attaque&quot;</span>)
-classement_10(<span style="background-color: #fff0f0">&quot;Défense&quot;</span>)
-classement_attrib()
-classement_attrib_legend()
-</pre></div>
+            liste_dico<span style="color: #333333">.</span>append(element[<span style="color: #0000DD; font-weight: bold">10</span>]<span style="color: #333333">.</span>text)
+            liste_dico<span style="color: #333333">.</span>append(element[<span style="color: #0000DD; font-weight: bold">5</span>]<span style="color: #333333">.</span>text)
+            liste_dico<span style="color: #333333">.</span>append(element[<span style="color: #0000DD; font-weight: bold">7</span>]<span style="color: #333333">.</span>text)
+            liste_dico<span style="color: #333333">.</span>append(<span style="color: #007020">int</span>(element[<span style="color: #0000DD; font-weight: bold">5</span>]<span style="color: #333333">.</span>text) <span style="color: #333333">+</span> <span style="color: #007020">int</span>(element[<span style="color: #0000DD; font-weight: bold">7</span>]<span style="color: #333333">.</span>text))
+            tab_total[element<span style="color: #333333">.</span>attrib[<span style="background-color: #fff0f0">&#39;name&#39;</span>]] <span style="color: #333333">=</span> liste_dico
+        tab_total <span style="color: #333333">=</span> <span style="color: #007020">sorted</span>(tab_total<span style="color: #333333">.</span>items(), key<span style="color: #333333">=</span><span style="color: #008800; font-weight: bold">lambda</span> x:x[<span style="color: #0000DD; font-weight: bold">1</span>][<span style="color: #0000DD; font-weight: bold">3</span>], reverse<span style="color: #333333">=</span><span style="color: #007020">True</span>)
+    
+        cols <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;Nom pokémon, Génération, Défense, Défense spéciale, Total Défense </span><span style="color: #666666; font-weight: bold; background-color: #fff0f0">\n</span><span style="background-color: #fff0f0">&quot;</span>
+        tab_name <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;classement_10_Attaque&quot;</span>
+    
+        liste_frmt <span style="color: #333333">=</span> []
+        <span style="color: #008800; font-weight: bold">for</span> i <span style="color: #000000; font-weight: bold">in</span> tab_total[<span style="color: #0000DD; font-weight: bold">0</span>:<span style="color: #0000DD; font-weight: bold">10</span>]:
+            <span style="color: #008800; font-weight: bold">for</span> t <span style="color: #000000; font-weight: bold">in</span> i :
+                frmt <span style="color: #333333">=</span> []
+                frmt<span style="color: #333333">.</span>append(i[<span style="color: #0000DD; font-weight: bold">0</span>])
+                frmt<span style="color: #333333">.</span>append(<span style="color: #007020">str</span>(i[<span style="color: #0000DD; font-weight: bold">1</span>][<span style="color: #0000DD; font-weight: bold">0</span>]) <span style="color: #333333">+</span> <span style="background-color: #fff0f0">&quot;, &quot;</span> <span style="color: #333333">+</span> <span style="color: #007020">str</span>(i[<span style="color: #0000DD; font-weight: bold">1</span>][<span style="color: #0000DD; font-weight: bold">1</span>]) <span style="color: #333333">+</span> <span style="background-color: #fff0f0">&quot;, &quot;</span> <span style="color: #333333">+</span> <span style="color: #007020">str</span>(i[<span style="color: #0000DD; font-weight: bold">1</span>][<span style="color: #0000DD; font-weight: bold">2</span>]) <span style="color: #333333">+</span> <span style="background-color: #fff0f0">&quot;, &quot;</span> <span style="color: #333333">+</span> <span style="color: #007020">str</span>(i[<span style="color: #0000DD; font-weight: bold">1</span>][<span style="color: #0000DD; font-weight: bold">3</span>]))
+            liste_frmt<span style="color: #333333">.</span>append(frmt)
+    
+        tab_total <span style="color: #333333">=</span> [<span style="color: #007020">tuple</span>(i) <span style="color: #008800; font-weight: bold">for</span> i <span style="color: #000000; font-weight: bold">in</span> liste_frmt]
+    
+        <span style="color: #008800; font-weight: bold">return</span> create_html_tab(tab_total, cols, tab_name)
+    
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">classement_10_Defense</span>():
+        tab_total <span style="color: #333333">=</span> {}
+        <span style="color: #008800; font-weight: bold">for</span> element <span style="color: #000000; font-weight: bold">in</span> root :
+            liste_dico <span style="color: #333333">=</span> []
+            liste_dico<span style="color: #333333">.</span>append(element[<span style="color: #0000DD; font-weight: bold">10</span>]<span style="color: #333333">.</span>text)
+            liste_dico<span style="color: #333333">.</span>append(element[<span style="color: #0000DD; font-weight: bold">6</span>]<span style="color: #333333">.</span>text)
+            liste_dico<span style="color: #333333">.</span>append(element[<span style="color: #0000DD; font-weight: bold">8</span>]<span style="color: #333333">.</span>text)
+            liste_dico<span style="color: #333333">.</span>append(<span style="color: #007020">int</span>(element[<span style="color: #0000DD; font-weight: bold">6</span>]<span style="color: #333333">.</span>text) <span style="color: #333333">+</span> <span style="color: #007020">int</span>(element[<span style="color: #0000DD; font-weight: bold">8</span>]<span style="color: #333333">.</span>text))
+            tab_total[element<span style="color: #333333">.</span>attrib[<span style="background-color: #fff0f0">&#39;name&#39;</span>]] <span style="color: #333333">=</span> liste_dico
+        tab_total <span style="color: #333333">=</span> <span style="color: #007020">sorted</span>(tab_total<span style="color: #333333">.</span>items(), key<span style="color: #333333">=</span><span style="color: #008800; font-weight: bold">lambda</span> x:x[<span style="color: #0000DD; font-weight: bold">1</span>][<span style="color: #0000DD; font-weight: bold">3</span>], reverse<span style="color: #333333">=</span><span style="color: #007020">True</span>)
+    
+        cols <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;Nom pokémon, Génération, Défense, Défense spéciale, Total Défense </span><span style="color: #666666; font-weight: bold; background-color: #fff0f0">\n</span><span style="background-color: #fff0f0">&quot;</span>
+        tab_name <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;classement_10_Défense&quot;</span>
+    
+        liste_frmt <span style="color: #333333">=</span> []
+        <span style="color: #008800; font-weight: bold">for</span> i <span style="color: #000000; font-weight: bold">in</span> tab_total[<span style="color: #0000DD; font-weight: bold">0</span>:<span style="color: #0000DD; font-weight: bold">10</span>]:
+            <span style="color: #008800; font-weight: bold">for</span> t <span style="color: #000000; font-weight: bold">in</span> i :
+                frmt <span style="color: #333333">=</span> []
+                frmt<span style="color: #333333">.</span>append(i[<span style="color: #0000DD; font-weight: bold">0</span>])
+                frmt<span style="color: #333333">.</span>append(<span style="color: #007020">str</span>(i[<span style="color: #0000DD; font-weight: bold">1</span>][<span style="color: #0000DD; font-weight: bold">0</span>]) <span style="color: #333333">+</span> <span style="background-color: #fff0f0">&quot;, &quot;</span> <span style="color: #333333">+</span> <span style="color: #007020">str</span>(i[<span style="color: #0000DD; font-weight: bold">1</span>][<span style="color: #0000DD; font-weight: bold">1</span>]) <span style="color: #333333">+</span> <span style="background-color: #fff0f0">&quot;, &quot;</span> <span style="color: #333333">+</span> <span style="color: #007020">str</span>(i[<span style="color: #0000DD; font-weight: bold">1</span>][<span style="color: #0000DD; font-weight: bold">2</span>]) <span style="color: #333333">+</span> <span style="background-color: #fff0f0">&quot;, &quot;</span> <span style="color: #333333">+</span> <span style="color: #007020">str</span>(i[<span style="color: #0000DD; font-weight: bold">1</span>][<span style="color: #0000DD; font-weight: bold">3</span>]))
+            liste_frmt<span style="color: #333333">.</span>append(frmt)
+    
+        tab_total <span style="color: #333333">=</span> [<span style="color: #007020">tuple</span>(i) <span style="color: #008800; font-weight: bold">for</span> i <span style="color: #000000; font-weight: bold">in</span> liste_frmt]
+    
+        <span style="color: #008800; font-weight: bold">return</span> create_html_tab(tab_total, cols, tab_name)
+    
+    classement_10_Attaque()
+    classement_10_Defense()
+    classement_attrib()
+    classement_attrib_legend()
+    </pre></div>
+    
