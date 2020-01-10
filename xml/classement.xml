@@ -11,25 +11,25 @@
         </partie>
         <partie>
             <presentation>
-                Classement des pokémons les plus puissants d’après leurs statistiques totales.
+                Classement des pokémons les plus puissants d’après leurs statistiques totales. Pour mettre en place ce classement nous avons dû récupérer dans un dictionnaire le nom des pokémons comme clé et ces statistiques totaux comme valeur afin de les trier avec une fonction "sorted" par la valeur de leurs statistiques totaux. En conclusion on peut voir qu'il y a une assez grande disparité au niveau des attributs entre le haut de classement avec 780 et le bas du classement à 180 d'attributs totaux. 
             </presentation>
         </partie>
         <code>../web/html/total_attrib.html</code>
         <partie>
             <presentation>
-                Classement des pokémons Légendaires d'après leurs statistiques totales.
+                Classement des pokémons Légendaires d'après leurs statistiques totales. Pour mettre en place ce classement nous avons dû récupérer dans un dictionnaire le nom des pokémons légendaire seulement comme clé et leurs numéros pokédex, leurs générations et le total de leurs attributs comme valeurs afin de faire un tri avec une fonction "sorted" par la valeur de leurs attributs totaux. Dans ce tableau on remarque rapidement que ce classement est très identique à notre tableau précédent, ce qui nous montre que ce sont bien les pokémons légendaires les mieux "dotés" en attributs.
             </presentation>
         </partie>
         <code>../web/html/total_attrib_legend.html</code>
         <partie>
             <presentation>
-                Classement des 10 meilleurs pokémons en attaque.
+                Classement des 10 meilleurs pokémons en attaque. Pour mettre en place ce classement nous avons dû créer un dictionnaire avec comme les précédents classements, le nom de pokémon pour clé puis l'Attaque, l'Attaque spéciale et l'addition de ces deux derniers éléments comme valeurs. Puis pour faire le tri il nous a fallu convertir les éléments de l'addition en int afin d'avoir un classement correct, puis reconvertir ensuite l'addition en string afin d'obtenir un format de tableau correct. Ce que l'on peut remarquer dans ce tableau c'est que le top 10 des meilleurs pokémons en Attaque sont regroupé parmis les pokémons de la génération 1, 3 et 6.
             </presentation>
         </partie>
         <code>../web/html/classement_10_Attaque.html</code>
         <partie>
             <presentation>
-                Classement des 10 meilleurs pokémons en défense.
+                Classement des 10 meilleurs pokémons en défense. Nous avons procédé de la même manière que pour le classement des meilleurs attaquants ci-dessus en changeant "Attaque" par "Défense". Ce que l'on remarque en premier dans ce classement c'est tout d'abord la moins grande présence des pokémons avec des évolution de type Méga, Primal etc. même s'il y en a tout de même. On remarque également que en Défense, ce sont plutôt les pokémons des générations 2, 3 et 6 qui prédominent (du moins dans le top 10).
             </presentation>
         </partie>
         <code>../web/html/classement_10_Défense.html</code>
